@@ -1,0 +1,62 @@
+<div class="video-container" style="display:grid;grid-template-columns: repeat(4, 1fr);gap:10px;" id="video-grid">
+  <!-- Videos will be dynamically inserted here by JavaScript -->
+</div>
+
+<script>
+  // List of YouTube video IDs (add more IDs to the array as needed)
+  const videoIds = [
+    "K3Qzzggn--s", // Example video ID 1
+    "5mm163wWKL8", // Example video ID 2
+    "vIaH35-MLsk", // Add your new video ID here
+    "YOUR_NEW_VIDEO_ID_2"  // Add your new video ID here
+  ];
+
+  // Loop through the video IDs and generate the video embed HTML
+  const videoContainer = document.getElementById('video-grid');
+
+  videoIds.forEach(id => {
+    // Create a div for each video
+    const videoDiv = document.createElement('div');
+    videoDiv.classList.add('video');
+    videoDiv.style.cursor = "pointer";
+    videoDiv.style.width = "100%";
+    videoDiv.style.position = "relative";
+    videoDiv.style.margin = "20px auto";
+
+    // Set the onclick functionality to create the iframe when clicked
+    videoDiv.onclick = function() {
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', `https://www.youtube.com/embed/${id}?autoplay=1`);
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      videoDiv.innerHTML = ''; // Remove the preview image
+      videoDiv.appendChild(iframe);
+    };
+
+    // Create the thumbnail image element for lazy loading
+    const img = document.createElement('img');
+    img.setAttribute('data-src', `https://img.youtube.com/vi/${id}/hqdefault.jpg`);
+    img.classList.add('lazyload');
+    img.style.width = "100%";
+    img.style.display = "block";
+
+    // Create the play button overlay
+    const playButton = document.createElement('div');
+    playButton.style.position = "absolute";
+    playButton.style.top = "50%";
+    playButton.style.left = "50%";
+    playButton.style.transform = "translate(-50%,-50%)";
+    playButton.style.width = "64px";
+    playButton.style.height = "64px";
+    playButton.style.background = "url('https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_(2017).svg') no-repeat center center / cover;";
+
+    // Append the image and play button overlay to the video div
+    videoDiv.appendChild(img);
+    videoDiv.appendChild(playButton);
+
+    // Append the video div to the container
+    videoContainer.appendChild(videoDiv);
+  });
+</script>

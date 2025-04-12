@@ -39,8 +39,41 @@
   <script>
     // List of YouTube video IDs
     const videoIds = [
-      "K3Qzzggn--s",  // Example video ID 1
-      "5mm163wWKL8"   // Example video ID 2
+      "pZ1NdE69VTs",  // Example video ID 1
+      "IVBW7sI8IhY",
+      "E2BCCqPFvjs",
+      "3gOHvDP_vCs",
+      "K3Qzzggn--s",
+      "5mm163wWKL8",
+      "MzCbEdtNbJ0",
+      "d0Pb-50oHGg",
+      "-e_3Cg9GZFU",
+      "H8O2pjjRJN0",
+      "AvR9cBlgKS0",
+      "NGgx2bG87ks",
+      "4u6DcnNuIPw",
+      "GrWv500P2hg",
+      "ij_0p_6qTss",
+      "24u3NoPvgMw",
+      "nfs8NYg7yQM",
+      "450p7goxZqg",
+      "0NKUpo_xKyQ",
+      "UAWcs5H-qgQ",
+      "O2y6i11LO1c",
+      "p9JxAQqtxkg",
+      "AzRyxGBGiAE",
+      "FJfFZqTlWrQ",
+      "GewsE7gFDr4",
+      "jgyzsbv2xKg",
+      "Ju8Hr50Ckwk",
+      "ynMk2EwRi4Q",
+      "M97vR2V4vTs",
+      "IxszlJppRQI",
+      "Qu1ZTCEw6wg",
+      "tv95k0zqnaA",
+      "BsvIwqyiaJw",
+      "FpoYNLA_8As",
+      "ymtCVuf481Q"   // Example video ID 2
     ];
 
     // Get the video container element
@@ -57,6 +90,7 @@
         const iframe = document.createElement('iframe');
         iframe.setAttribute('src', `https://www.youtube.com/embed/${id}?autoplay=1`);
         iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
         iframe.setAttribute('allowfullscreen', '');
         iframe.style.width = "100%";
         iframe.style.height = "100%";

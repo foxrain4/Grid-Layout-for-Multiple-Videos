@@ -19,15 +19,6 @@
       width: 100%;
       display: block;
     }
-    .play-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 64px;
-      height: 64px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_(2017).svg') no-repeat center center / cover;
-    }
     button {
   margin: 10px;
   padding: 8px 14px;
@@ -99,11 +90,8 @@ button:hover {
       img.setAttribute('src', `https://img.youtube.com/vi/${id}/hqdefault.jpg`);
       img.classList.add('lazyload');
 
-      const playButton = document.createElement('div');
-      playButton.classList.add('play-button');
 
       videoDiv.appendChild(img);
-      videoDiv.appendChild(playButton);
       videoContainer.appendChild(videoDiv);
     });
   }

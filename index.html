@@ -28,6 +28,20 @@
       height: 64px;
       background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_(2017).svg') no-repeat center center / cover;
     }
+    button {
+  margin: 10px;
+  padding: 8px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+}
+button:hover {
+  background-color: #666;
+}
+
   </style>
 </head>
 <body>
@@ -36,57 +50,29 @@
     <!-- Videos will be dynamically added here -->
   </div>
 
-  <script>
-    // List of YouTube video IDs
-    const videoIds = [
-      "pZ1NdE69VTs",  // Example video ID 1
-      "IVBW7sI8IhY",
-      "E2BCCqPFvjs",
-      "3gOHvDP_vCs",
-      "K3Qzzggn--s",
-      "5mm163wWKL8",
-      "MzCbEdtNbJ0",
-      "d0Pb-50oHGg",
-      "-e_3Cg9GZFU",
-      "H8O2pjjRJN0",
-      "AvR9cBlgKS0",
-      "NGgx2bG87ks",
-      "4u6DcnNuIPw",
-      "GrWv500P2hg",
-      "ij_0p_6qTss",
-      "24u3NoPvgMw",
-      "nfs8NYg7yQM",
-      "450p7goxZqg",
-      "0NKUpo_xKyQ",
-      "UAWcs5H-qgQ",
-      "O2y6i11LO1c",
-      "p9JxAQqtxkg",
-      "AzRyxGBGiAE",
-      "FJfFZqTlWrQ",
-      "GewsE7gFDr4",
-      "jgyzsbv2xKg",
-      "Ju8Hr50Ckwk",
-      "ynMk2EwRi4Q",
-      "M97vR2V4vTs",
-      "IxszlJppRQI",
-      "Qu1ZTCEw6wg",
-      "tv95k0zqnaA",
-      "BsvIwqyiaJw",
-      "FpoYNLA_8As",
-      "ymtCVuf481Q"   // Example video ID 2
-    ];
+<script>
+  // Your list of YouTube video IDs
+  const videoIds = [
+    "pZ1NdE69VTs", "IVBW7sI8IhY", "E2BCCqPFvjs", "3gOHvDP_vCs",
+    "K3Qzzggn--s", "5mm163wWKL8", "MzCbEdtNbJ0", "d0Pb-50oHGg",
+    "-e_3Cg9GZFU", "H8O2pjjRJN0", "AvR9cBlgKS0", "NGgx2bG87ks",
+    "4u6DcnNuIPw", "GrWv500P2hg", "ij_0p_6qTss", "24u3NoPvgMw",
+    "nfs8NYg7yQM", "450p7goxZqg", "0NKUpo_xKyQ", "UAWcs5H-qgQ",
+    "O2y6i11LO1c", "p9JxAQqtxkg", "AzRyxGBGiAE", "FJfFZqTlWrQ",
+    "GewsE7gFDr4", "jgyzsbv2xKg", "Ju8Hr50Ckwk", "ynMk2EwRi4Q",
+    "M97vR2V4vTs", "IxszlJppRQI", "Qu1ZTCEw6wg", "tv95k0zqnaA",
+    "BsvIwqyiaJw", "FpoYNLA_8As", "ymtCVuf481Q"
+  ];
 
-    // Get the video container element
-    const videoContainer = document.getElementById('video-grid');
+  const videoContainer = document.getElementById('video-grid');
 
-    // Loop through the video IDs and generate the embeds
-    videoIds.forEach(id => {
-      // Create a div for the video container
+  function createVideoGrid(ids) {
+    videoContainer.innerHTML = '';
+    ids.forEach(id => {
       const videoDiv = document.createElement('div');
       videoDiv.classList.add('video');
-      
-      // Add click event to create iframe and play video
-      videoDiv.onclick = function() {
+
+      videoDiv.onclick = function () {
         const iframe = document.createElement('iframe');
         iframe.setAttribute('src', `https://www.youtube.com/embed/${id}?autoplay=1`);
         iframe.setAttribute('frameborder', '0');
@@ -94,26 +80,52 @@
         iframe.setAttribute('allowfullscreen', '');
         iframe.style.width = "100%";
         iframe.style.height = "100%";
-        videoDiv.innerHTML = '';  // Clear existing content
-        videoDiv.appendChild(iframe);  // Append iframe to the video div
+        videoDiv.innerHTML = '';
+        videoDiv.appendChild(iframe);
       };
 
-      // Create and set the thumbnail image for lazy loading
       const img = document.createElement('img');
       img.setAttribute('src', `https://img.youtube.com/vi/${id}/hqdefault.jpg`);
       img.classList.add('lazyload');
 
-      // Create the play button overlay
       const playButton = document.createElement('div');
       playButton.classList.add('play-button');
 
-      // Append the thumbnail and play button to the video div
       videoDiv.appendChild(img);
       videoDiv.appendChild(playButton);
-
-      // Add the video div to the container
       videoContainer.appendChild(videoDiv);
     });
-  </script>
+  }
+
+  // Default: latest first
+  let currentList = [...videoIds].reverse();
+  createVideoGrid(currentList);
+
+  // Add buttons
+  const controls = document.createElement('div');
+  controls.innerHTML = `
+    <button onclick="sortByNewest()">Newest First</button>
+    <button onclick="sortByOldest()">Oldest First</button>
+    <button onclick="shuffleVideos()">Shuffle</button>
+  `;
+  document.body.insertBefore(controls, videoContainer);
+
+  // Sorting functions
+  function sortByNewest() {
+    currentList = [...videoIds].reverse();
+    createVideoGrid(currentList);
+  }
+
+  function sortByOldest() {
+    currentList = [...videoIds];
+    createVideoGrid(currentList);
+  }
+
+  function shuffleVideos() {
+    currentList = [...videoIds].sort(() => Math.random() - 0.5);
+    createVideoGrid(currentList);
+  }
+</script>
+
 </body>
 </html>
